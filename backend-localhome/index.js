@@ -1,23 +1,24 @@
-async function testarPC() {
+const express = require('express');
+const cors = require('cors');
 
-    try {
+const app = express();
 
-        const response =
-            await fetch(`${PC}/teste`);
+app.use(cors());
 
-        const data =
-            await response.text();
+// ROTA TESTE
+app.get('/teste', (req, res) => {
 
-        document.getElementById("resultado")
-            .textContent =
-            "✅ PC respondeu: " + data;
+    console.log(
+        "💻 Requisição recebida no PC local"
+    );
 
-    } catch (erro) {
+    res.send("PC Local OK 💻");
+});
 
-        console.error(erro);
+// INICIA SERVIDOR
+app.listen(3000, '0.0.0.0', () => {
 
-        document.getElementById("resultado")
-            .textContent =
-            "❌ Erro PC";
-    }
-}
+    console.log(
+        "🚀 Servidor local rodando na porta 3000"
+    );
+});
