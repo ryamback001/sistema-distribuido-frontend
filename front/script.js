@@ -1,31 +1,58 @@
-const AZURE = "http://IP_DA_AZURE:3002";
-const PC = "https://SEU_NGROK.io";
+const AZURE = "http://20.151.117.60:3002";
+const PC = "https://SEU_NGROK.ngrok-free.app";
 
 // TESTE AZURE
-function testarConexaoAzure() {
-    fetch("http://20.151.117.60:3002/teste")
-        .then(response => response.text())
-        .then(data => {
-            console.log(data); 
-            alert("Conexão com Azure: " + data);
-        })
-        .catch(err => {
-            console.error("Erro na requisição:", err);
-            alert("Erro ao conectar com a Azure. Verifique o console.");
-        });
-}
-// TESTE PC
-async function testarPC() {
+async function testarConexaoAzure() {
+
     try {
-        const res = await fetch(`${PC}/teste`);
-        const data = await res.text();
+
+        const response = await fetch(`${AZURE}/teste`);
+        const data = await response.text();
+
+        console.log(data);
 
         document.getElementById("resultado").textContent =
-            "PC respondeu: " + data;
+            "✅ Azure respondeu: " + data;
+
+    } catch (err) {
+
+        console.error("Erro Azure:", err);
+
+        document.getElementById("resultado").textContent =
+            "❌ Erro ao conectar Azure";
+    }
+}
+
+// TESTE PC LOCAL (NGROK)
+async function testarPC() {
+
+    try {
+
+        const response = await fetch(`${PC}/teste`);
+        const data = await response.text();
+
+        console.log(data);
+
+        document.getElementById("resultado").textContent =
+            "✅ PC respondeu: " + data;
 
     } catch (erro) {
+
+        console.error("Erro PC:", erro);
+
         document.getElementById("resultado").textContent =
-            "❌ Erro PC";
-        console.error(erro);
+            "❌ Erro ao conectar PC";
     }
+}
+
+async function testarFluxoCompleto() {
+
+    const response =
+        await fetch(`${AZURE}/pc`);
+
+    const data =
+        await response.text();
+
+    document.getElementById("resultado")
+        .textContent = data;
 }

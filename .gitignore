@@ -1,0 +1,15 @@
+# Dependências Node
+node_modules/
+
+# Logs
+npm-debug.log*
+
+# Arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Variáveis ambiente
+.env
+
+# Config ngrok
+.ngrok2/
