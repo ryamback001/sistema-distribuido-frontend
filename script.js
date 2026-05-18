@@ -14,10 +14,16 @@ function alternarTela(idTela) {
 const form = document.getElementById('formCadastro');
 const tabelaBody = document.querySelector('#tabelaUsuarios tbody');
 
-// Buscar Usuários (GET)
+// Buscar Usuários (GET) - Atualizado para pular o aviso do ngrok
 async function atualizarTabela() {
     try {
-        const response = await fetch(`${NGROK_URL}/usuarios`);
+        const response = await fetch(`${NGROK_URL}/usuarios`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true' // 🚀 Pula a tela de aviso do ngrok automaticamente
+            }
+        });
         const usuarios = await response.json();
         
         tabelaBody.innerHTML = '';
@@ -35,7 +41,7 @@ async function atualizarTabela() {
     }
 }
 
-// Enviar Usuário (POST)
+// Enviar Usuário (POST) - Atualizado para pular o aviso do ngrok
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const nome = document.getElementById('nome').value;
@@ -44,7 +50,10 @@ form.addEventListener('submit', async (e) => {
     try {
         const response = await fetch(`${NGROK_URL}/usuarios`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 
+                'Content-Type': 'application/json',
+                'ngrok-skip-browser-warning': 'true' // 🚀 Garante que o POST chegue direto na API
+            },
             body: JSON.stringify({ nome, email })
         });
 
@@ -59,5 +68,7 @@ form.addEventListener('submit', async (e) => {
         console.error("Erro de conectividade na rede:", error);
     }
 });
+
+
 
 document.getElementById('btnAtualizar').addEventListener('click', atualizarTabela);
