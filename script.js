@@ -2,7 +2,7 @@ const AZURE = "http://20.151.117.60:3002";
 
 
 // ⚠️ IMPORTANTE: Sempre coloque aqui a URL gerada pelo seu ngrok ativo!
-const NGROK_URL = "https://rimless-venture-water.ngrok-free.app"; 
+ const NGROK_URL = "https://rimless-venture-water.ngrok-free.dev";
 
 // Alternar entre as abas do menu
 function alternarTela(idTela) {
