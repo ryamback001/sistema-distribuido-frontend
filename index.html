@@ -1,96 +1,181 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Distributed CRUD</title>
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
   <!-- LOGIN -->
   <div class="login-container" id="loginScreen">
+
     <div class="login-box">
+
       <h2>🔐 Login do Sistema</h2>
 
-      <input type="text" id="usuario" placeholder="Usuário" />
-      <input type="password" id="senha" placeholder="Senha" />
+      <input
+        type="text"
+        id="usuario"
+        placeholder="Usuário"
+      />
 
-      <button onclick="fazerLogin()">Entrar</button>
+      <input
+        type="password"
+        id="senha"
+        placeholder="Senha"
+      />
+
+      <button onclick="fazerLogin()">
+        Entrar
+      </button>
 
       <p id="erroLogin"></p>
+
+      <div class="login-info">
+        <p>Usuário: <strong>admin</strong></p>
+        <p>Senha: <strong>1234</strong></p>
+      </div>
+
     </div>
+
   </div>
+
 
   <!-- SISTEMA -->
   <div id="sistema" style="display: none;">
 
+    <!-- NAVBAR -->
     <nav class="navbar">
-      <div class="logo">Distribuídos OS</div>
+
+      <div class="logo">
+        Distribuídos OS
+      </div>
 
       <ul class="nav-links">
+
         <li>
-          <a href="#" onclick="alternarTela('tela-cadastro')">
+          <a
+            href="#"
+            onclick="alternarTela('tela-cadastro')"
+          >
             Cadastrar Usuário
           </a>
         </li>
 
         <li>
-          <a href="#" onclick="alternarTela('tela-listagem')">
+          <a
+            href="#"
+            onclick="alternarTela('tela-listagem')"
+          >
             Visualizar Banco
           </a>
         </li>
 
         <li>
-          <a href="#" onclick="logout()">
+          <a
+            href="#"
+            onclick="logout()"
+          >
             Sair
           </a>
         </li>
+
       </ul>
+
     </nav>
 
+
+    <!-- CONTAINER -->
     <div class="container">
 
       <!-- CADASTRO -->
-      <section id="tela-cadastro" class="modulo-tela">
-        <h2>👤 Cadastro de Usuário</h2>
+      <section
+        id="tela-cadastro"
+        class="modulo-tela"
+      >
+
+        <h2>
+          👤 Cadastro de Usuário
+        </h2>
 
         <form id="formCadastro">
 
           <div class="form-group">
-            <label>Nome Completo:</label>
-            <input type="text" id="nome" required />
+
+            <label>
+              Nome Completo:
+            </label>
+
+            <input
+              type="text"
+              id="nome"
+              required
+              placeholder="Digite o nome"
+            />
+
           </div>
 
           <div class="form-group">
-            <label>E-mail:</label>
-            <input type="email" id="email" required />
+
+            <label>
+              E-mail:
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="Digite o e-mail"
+            />
+
           </div>
 
-          <button type="submit" class="btn">
+          <button
+            type="submit"
+            class="btn"
+          >
             Enviar para a Rede
           </button>
 
         </form>
+
       </section>
 
+
       <!-- LISTAGEM -->
-      <section id="tela-listagem" class="modulo-tela deactive">
+      <section
+        id="tela-listagem"
+        class="modulo-tela deactive"
+      >
 
-        <h2>🗄️ Dados Persistidos</h2>
+        <h2>
+          🗄️ Dados Persistidos
+        </h2>
 
-        <button id="btnAtualizar" class="btn secundario">
+        <button
+          id="btnAtualizar"
+          class="btn secundario"
+        >
           Atualizar Lista
         </button>
 
         <table id="tabelaUsuarios">
+
           <thead>
+
             <tr>
               <th>ID</th>
               <th>Nome</th>
               <th>Email</th>
               <th>Data Registro</th>
             </tr>
+
           </thead>
 
           <tbody></tbody>
@@ -106,4 +191,5 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>
