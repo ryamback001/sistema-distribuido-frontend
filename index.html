@@ -3,54 +3,87 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Distributed CRUD</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <link rel="stylesheet" href="style.css" />
+  <title>
+    Distributed CRUD
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  />
 </head>
 
 <body>
 
-  <!-- LOGIN -->
-  <div class="login-container" id="loginScreen">
+  <!-- ===================================== -->
+  <!-- LOGIN / CADASTRO -->
+  <!-- ===================================== -->
+
+  <div
+    class="login-container"
+    id="loginScreen"
+  >
 
     <div class="login-box">
 
-      <h2>🔐 Login do Sistema</h2>
+      <h2>
+        🔐 Sistema Distribuído
+      </h2>
 
       <input
         type="text"
         id="usuario"
-        placeholder="Usuário"
+        placeholder="Digite seu usuário"
       />
 
       <input
         type="password"
         id="senha"
-        placeholder="Senha"
+        placeholder="Digite sua senha"
       />
 
-      <button onclick="fazerLogin()">
-        Entrar
-      </button>
+      <div class="login-buttons">
+
+        <button
+          class="btn"
+          onclick="fazerLogin()"
+        >
+          Entrar
+        </button>
+
+        <button
+          class="btn secundario"
+          onclick="cadastrarConta()"
+        >
+          Criar Conta
+        </button>
+
+      </div>
 
       <p id="erroLogin"></p>
-
-      <div class="login-info">
-        <p>Usuário: <strong>admin</strong></p>
-        <p>Senha: <strong>1234</strong></p>
-      </div>
 
     </div>
 
   </div>
 
 
+  <!-- ===================================== -->
   <!-- SISTEMA -->
-  <div id="sistema" style="display: none;">
+  <!-- ===================================== -->
+
+  <div
+    id="sistema"
+    style="display:none;"
+  >
 
     <!-- NAVBAR -->
+
     <nav class="navbar">
 
       <div class="logo">
@@ -60,30 +93,36 @@
       <ul class="nav-links">
 
         <li>
+
           <a
             href="#"
             onclick="alternarTela('tela-cadastro')"
           >
             Cadastrar Usuário
           </a>
+
         </li>
 
         <li>
+
           <a
             href="#"
             onclick="alternarTela('tela-listagem')"
           >
             Visualizar Banco
           </a>
+
         </li>
 
         <li>
+
           <a
             href="#"
             onclick="logout()"
           >
             Sair
           </a>
+
         </li>
 
       </ul>
@@ -91,10 +130,13 @@
     </nav>
 
 
-    <!-- CONTAINER -->
+    <!-- CONTEÚDO -->
+
     <div class="container">
 
-      <!-- CADASTRO -->
+
+      <!-- CADASTRO DE USUÁRIOS -->
+
       <section
         id="tela-cadastro"
         class="modulo-tela"
@@ -149,6 +191,7 @@
 
 
       <!-- LISTAGEM -->
+
       <section
         id="tela-listagem"
         class="modulo-tela deactive"
@@ -187,6 +230,9 @@
     </div>
 
   </div>
+
+
+  <!-- SCRIPT -->
 
   <script src="script.js"></script>
 
