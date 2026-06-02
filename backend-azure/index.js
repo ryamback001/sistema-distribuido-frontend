@@ -12,16 +12,17 @@ let bancoDadosUsuarios = [];
 
 // Rota POST: Recebe os dados persistidos vindo do nó local
 app.post('/usuarios', (req, res) => {
-    const { nome, email } = req.body;
+    const { nome, email, senha } = req.body;
 
-    if (!nome || !email) {
+    if (!nome || !email || !senha) {
         return res.status(400).json({ erro: "Dados incompletos no servidor Azure." });
-    }
+const { nome, email, senha } = req.body;    }
 
     const novoUsuario = {
         id: bancoDadosUsuarios.length + 1,
         nome,
         email,
+	senha,
         data: new Date()
     };
 
