@@ -2,8 +2,7 @@
 // CONFIGURAÇÃO
 // =========================
 
-const NGROK_URL =
-    "https://rimless-venture-water.ngrok-free.dev";
+const NGROK_URL = "https://SEU-NGROK.ngrok-free.app";
 
 
 // =========================
