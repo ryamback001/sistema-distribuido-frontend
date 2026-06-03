@@ -9,21 +9,37 @@ app.use(cors());
 app.use(express.json());
 
 // ======================================
-// BANCO JSON
+// ARQUIVOS
 // ======================================
 
-const ARQUIVO = 'usuarios.json';
+const ARQUIVO_CONTAS = 'contas.json';
+const ARQUIVO_USUARIOS = 'usuarios.json';
 
-let bancoDadosUsuarios = [];
+// ======================================
+// CARREGAR DADOS
+// ======================================
 
-if (fs.existsSync(ARQUIVO)) {
-    bancoDadosUsuarios = JSON.parse(
-        fs.readFileSync(ARQUIVO, 'utf8')
+let contas = [];
+let usuarios = [];
+
+if (fs.existsSync(ARQUIVO_CONTAS)) {
+    contas = JSON.parse(
+        fs.readFileSync(ARQUIVO_CONTAS, 'utf8')
+    );
+}
+
+if (fs.existsSync(ARQUIVO_USUARIOS)) {
+    usuarios = JSON.parse(
+        fs.readFileSync(ARQUIVO_USUARIOS, 'utf8')
     );
 }
 
 console.log(
-    `📂 Banco carregado com ${bancoDadosUsuarios.length} usuário(s)`
+    `📂 Contas carregadas: ${contas.length}`
+);
+
+console.log(
+    `📂 Usuários carregados: ${usuarios.length}`
 );
 
 // ======================================
@@ -35,40 +51,45 @@ app.post('/register', (req, res) => {
     const { usuario, senha } = req.body;
 
     if (!usuario || !senha) {
+
         return res.status(400).json({
             erro: 'Usuário e senha obrigatórios.'
         });
+
     }
 
-    const existe = bancoDadosUsuarios.find(
+    const existe = contas.find(
         u => u.usuario === usuario
     );
 
     if (existe) {
+
         return res.status(400).json({
             erro: 'Usuário já existe.'
         });
+
     }
 
-    bancoDadosUsuarios.push({
-        id: bancoDadosUsuarios.length + 1,
+    const novaConta = {
+        id: contas.length + 1,
         usuario,
         senha,
         data: new Date()
-    });
+    };
+
+    contas.push(novaConta);
 
     fs.writeFileSync(
-        ARQUIVO,
-        JSON.stringify(
-            bancoDadosUsuarios,
-            null,
-            2
-        )
+        ARQUIVO_CONTAS,
+        JSON.stringify(contas, null, 2)
     );
 
-    console.log('✅ Usuário registrado:', usuario);
+    console.log(
+        '✅ Conta registrada:',
+        usuario
+    );
 
-    res.status(201).json({
+    return res.status(201).json({
         mensagem: 'Conta criada com sucesso.'
     });
 
@@ -82,23 +103,25 @@ app.post('/login', (req, res) => {
 
     const { usuario, senha } = req.body;
 
-    const user = bancoDadosUsuarios.find(
+    const user = contas.find(
         u =>
             u.usuario === usuario &&
             u.senha === senha
     );
 
     if (!user) {
+
         return res.status(401).json({
             erro: 'Credenciais inválidas.'
         });
+
     }
 
     console.log(
         `🔐 Login autorizado: ${usuario}`
     );
 
-    res.json({
+    return res.json({
         mensagem: 'Login realizado',
         token: 'TOKEN_SIMULADO_123'
     });
@@ -106,7 +129,7 @@ app.post('/login', (req, res) => {
 });
 
 // ======================================
-// CADASTRO DE PESSOAS
+// CADASTRAR USUÁRIO/ALUNO
 // ======================================
 
 app.post('/usuarios', (req, res) => {
@@ -114,29 +137,25 @@ app.post('/usuarios', (req, res) => {
     const { nome, email } = req.body;
 
     if (!nome || !email) {
+
         return res.status(400).json({
             erro: 'Dados incompletos.'
         });
+
     }
 
     const novoUsuario = {
-        id: bancoDadosUsuarios.length + 1,
+        id: usuarios.length + 1,
         nome,
         email,
         data: new Date()
     };
 
-    bancoDadosUsuarios.push(
-        novoUsuario
-    );
+    usuarios.push(novoUsuario);
 
     fs.writeFileSync(
-        ARQUIVO,
-        JSON.stringify(
-            bancoDadosUsuarios,
-            null,
-            2
-        )
+        ARQUIVO_USUARIOS,
+        JSON.stringify(usuarios, null, 2)
     );
 
     console.log(
@@ -144,7 +163,7 @@ app.post('/usuarios', (req, res) => {
         novoUsuario
     );
 
-    res.status(201).json({
+    return res.status(201).json({
         mensagem: 'Salvo com sucesso',
         usuario: novoUsuario
     });
@@ -152,14 +171,26 @@ app.post('/usuarios', (req, res) => {
 });
 
 // ======================================
-// LISTAR
+// LISTAR USUÁRIOS
 // ======================================
 
 app.get('/usuarios', (req, res) => {
 
-    res.json(
-        bancoDadosUsuarios
-    );
+    return res.json(usuarios);
+
+});
+
+// ======================================
+// STATUS
+// ======================================
+
+app.get('/', (req, res) => {
+
+    return res.json({
+        status: 'AZURE ONLINE',
+        contas: contas.length,
+        usuarios: usuarios.length
+    });
 
 });
 
