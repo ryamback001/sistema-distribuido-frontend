@@ -2,7 +2,7 @@
 // CONFIGURAÇÃO
 // =========================
 
-const NGROK_URL = "https://SEU-NGROK.ngrok-free.app";
+const NGROK_URL = "https://SEU-NGROK.ngrok-free.dev";
 
 
 // =========================
